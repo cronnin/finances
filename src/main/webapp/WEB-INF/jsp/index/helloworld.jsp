@@ -1,0 +1,24 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE HTML>
+<html>
+<body>
+    Time: <span id="foo"></span>
+     
+    <br><br>
+    <button onclick="start()">Start</button>
+ 
+    <script type="text/javascript">
+    function start() {
+ 
+        var eventSource = new EventSource("HelloServlet");
+         
+        eventSource.onmessage = function(event) {
+         
+            document.getElementById('foo').innerHTML = event.data;
+         
+        };
+         
+    }
+    </script>
+</body>
+</html>
