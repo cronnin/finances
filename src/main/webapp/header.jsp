@@ -5,16 +5,28 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-        <title>JSP Page</title>
+        <title>Finances</title>
 
-        <script src="polymer/components/platform/platform.js">
-        </script>
-        <link href="css/estilo.css" rel="stylesheet" type="text/css"/>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 
-        <link rel="import" href="polymer/components/font-roboto/roboto.html">
-        <link rel="import" href="polymer/components/core-header-panel/core-header-panel.html">
-        <link rel="import" href="polymer/components/core-toolbar/core-toolbar.html">
-        <link rel="import" href="polymer/components/paper-tabs/paper-tabs.html">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+
+        <script src="jquery-2.1.3.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="bootstrap/js/bootstrap.min.js"></script>
     </head>
-    <body unresolved>
+    <body>
+        <div class="container-fluid">
+            
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img alt="Brand" src="imagens/emblem_money_min.png" />
+                    </a>
+                </div>
+            </div>
+        </nav>
 
