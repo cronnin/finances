@@ -6,10 +6,32 @@
 
 package net.diogopcoelho.finances.dao;
 
+import java.util.List;
+import net.diogopcoelho.finances.entities.Movimentacao;
+
 /**
  *
  * @author CSI
  */
-public interface MovimentacaoDAO {
+public class MovimentacaoDAO extends GenericDAO<Movimentacao, Integer> {
+    
+    @Override
+    public List<Movimentacao> findAll(){
+        return super.findAll();
+    }
+
+    @Override
+    public Movimentacao getReference(Integer pk) {
+        return super.getReference(pk);
+    }
+
+    public Movimentacao salvar(Movimentacao entity) {
+       return super.mergeEntityWithRefresh(entity);
+    }
+
+    @Override
+    public void removeEntity(Integer pk) {
+        super.removeEntity(pk);
+    }
     
 }

@@ -21,7 +21,8 @@ public abstract class GenericDAO<T extends Serializable, PK extends Serializable
 
     @SuppressWarnings("unchecked")
     public GenericDAO() {
-        tipoClass = (Class<T>) ((ParameterizedType) getClass().getSuperclass().getGenericSuperclass()).getActualTypeArguments()[ 0];
+        tipoClass = (Class<T>) ((ParameterizedType) 
+                getClass().getGenericSuperclass()).getActualTypeArguments()[ 0];
     }
 
     protected List<T> findAll() {

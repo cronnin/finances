@@ -44,12 +44,16 @@
 <div id="menu">
     <ul>
         <li>
+            <a>
             <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
             <span class="label">Movimentações</span>
+            </a>
         </li>
         <li>
+            <a href="movimentacao/novo">
             <span class="glyphicon glyphicon-user"></span>
             <span class="label">Usuarios</span>
+            </a>
         </li>
     </ul>
 </div>
