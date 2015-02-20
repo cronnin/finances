@@ -16,7 +16,6 @@ import br.com.caelum.vraptor.Result;
 public class IndexController {
 
 	private final Result result;
-
 	/**
 	 * @deprecated CDI eyes only
 	 */
