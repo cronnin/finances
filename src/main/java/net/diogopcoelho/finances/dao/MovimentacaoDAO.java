@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package net.diogopcoelho.finances.dao;
 
 import java.util.List;
@@ -11,27 +10,13 @@ import net.diogopcoelho.finances.entities.Movimentacao;
 
 /**
  *
- * @author CSI
+ * @author coelho
  */
-public class MovimentacaoDAO extends GenericDAO<Movimentacao, Integer> {
-    
-    @Override
-    public List<Movimentacao> findAll(){
-        return super.findAll();
-    }
-
-    @Override
-    public Movimentacao getReference(Integer pk) {
-        return super.getReference(pk);
-    }
-
-    public Movimentacao salvar(Movimentacao entity) {
-       return super.mergeEntityWithRefresh(entity);
-    }
-
-    @Override
-    public void removeEntity(Integer pk) {
-        super.removeEntity(pk);
-    }
-    
+public interface MovimentacaoDAO {
+    public Movimentacao find(Integer id);
+    public List<Movimentacao> listAll();
+    public void add(Movimentacao movimentacao);
+    public Movimentacao refresh(Movimentacao movimentacao);
+    public void update(Movimentacao movimentacao);
+    public void remove(Movimentacao movimentacao);
 }

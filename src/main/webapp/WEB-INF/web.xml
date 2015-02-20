@@ -6,28 +6,19 @@
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
 
   <display-name>Finances</display-name>
-  
-<!--  <listener> 
-      <listener-class>net.diogopcoelho.finances.listener.ServerChatListener</listener-class> 
-  </listener>
-  
-  <context-param>
-    <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
-    <param-value>messages</param-value>
-  </context-param>-->
-  
-<listener>
-    <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
-</listener>
-  
-  <servlet>
-        <display-name>HelloServlet</display-name>
-        <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>HelloServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>HelloServlet</servlet-name>
-        <url-pattern>/HelloServlet</url-pattern>
-    </servlet-mapping>
+ <context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+		<param-value>messages</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
+	</listener>
+
+	<resource-env-ref>
+		<description>Object factory for the CDI Bean Manager</description>
+		<resource-env-ref-name>BeanManager</resource-env-ref-name>
+		<resource-env-ref-type>javax.enterprise.inject.spi.BeanManager</resource-env-ref-type>
+	</resource-env-ref>
   
 </web-app>

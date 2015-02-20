@@ -8,21 +8,25 @@ package net.diogopcoelho.finances.dao;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 /**
  *
  * @author CSI
  */
 public abstract class GenericDAO<T extends Serializable, PK extends Serializable> {
-
-    private EntityManager em;
+    
+    @PersistenceContext
+    private final EntityManager em;
     private final Class<T> tipoClass;
 
     @SuppressWarnings("unchecked")
-    public GenericDAO() {
+    public GenericDAO(EntityManager em) {
         tipoClass = (Class<T>) ((ParameterizedType) 
                 getClass().getGenericSuperclass()).getActualTypeArguments()[ 0];
+        this.em = em;
     }
 
     protected List<T> findAll() {

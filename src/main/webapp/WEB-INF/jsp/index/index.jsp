@@ -39,7 +39,7 @@
 </ol>
 
 <div class="page-header">
-  <h1>Example page header <small>Welcome to here</small></h1>
+  <h1>Example page header <small>Welcome to herse</small></h1>
 </div>
 <div id="menu">
     <ul>
@@ -50,9 +50,9 @@
             </a>
         </li>
         <li>
-            <a href="movimentacao/novo">
+            <a href="area">
             <span class="glyphicon glyphicon-user"></span>
-            <span class="label">Usuarios</span>
+            <span class="label">Area</span>
             </a>
         </li>
     </ul>
