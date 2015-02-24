@@ -46,16 +46,13 @@ public class AreaController {
     }
 
     @Post("/area")
-    public String adiciona(final Area area) {
-        String message="";
-        
+    public void adiciona(final Area area) {
         if(area.getDescricao() == null || area.getDescricao().isEmpty())
         {
-            result.use(Results.status()).forbidden("Deve preencher o capo descrição");
-            return "";
+            result.use(Results.json()).from(new Retorno("Necessário preencher o campo descrição"));
         }
         this.areaDAO.add(area);
-        return message="Sucesso!";
+        result.use(Results.nothing());
     }
 
     @Delete("/area/{id}")
