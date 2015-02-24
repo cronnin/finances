@@ -22,18 +22,16 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Column heading</th>
-                <th>Column heading</th>
-                <th>Column heading</th>
+                <th>Descrição</th>
             </tr>
         </thead>
         <tbody>
+            <c:forEach items="${areaList}" var="area">
             <tr>
-                <td>1</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
+                <td>${area.id}</td>
+                <td>${area.descricao}</td>
             </tr>
+            </c:forEach>
         </tbody>
     </table> 
 </div>

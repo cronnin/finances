@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
         <title>Finances</title>
 
@@ -16,6 +16,8 @@
         <script src="<c:url value="/jquery-2.1.3.min.js"/>"></script>
         <!-- Latest compiled and minified JavaScript -->
         <script src="<c:url value="/bootstrap/js/bootstrap.min.js"/>"></script>
+        
+        <script src="<c:url value="/finances.js"/>"></script>
     </head>
     <body>
         <div class="container-fluid">

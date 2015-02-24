@@ -11,6 +11,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 import java.util.List;
 import javax.inject.Inject;
 import net.diogopcoelho.finances.dao.AreaDAO;
@@ -45,8 +46,16 @@ public class AreaController {
     }
 
     @Post("/area")
-    public void adiciona(final Area area) {
+    public String adiciona(final Area area) {
+        String message="";
+        
+        if(area.getDescricao() == null || area.getDescricao().isEmpty())
+        {
+            result.use(Results.status()).forbidden("Deve preencher o capo descrição");
+            return "";
+        }
         this.areaDAO.add(area);
+        return message="Sucesso!";
     }
 
     @Delete("/area/{id}")
