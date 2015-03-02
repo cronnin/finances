@@ -11,6 +11,8 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.validator.SimpleMessage;
+import br.com.caelum.vraptor.validator.Validator;
 import br.com.caelum.vraptor.view.Results;
 import java.util.List;
 import javax.inject.Inject;
@@ -30,34 +32,45 @@ public class AreaController {
     @Inject
     private AreaDAO areaDAO;
     
+    @Inject
+    Validator validator;
+    
     
     @Get("/area/novo")
     public void formulario() {
     }
 
     @Get("/area/{id}")
-    public Area edita(Integer id) {
+    public Area formulario(Integer id) {
         return this.areaDAO.find(id);
     }
 
-    @Put("/area/{area.id}")
+    @Put("/area/{id}")
     public void altera(Area area) {
+        if(area.getDescricao() == null || area.getDescricao().isEmpty())
+        {
+            validator.add(new SimpleMessage("alerta", "O campo descrição deve ser preenchido"));
+            validator.onErrorForwardTo(this).formulario(area.getId());
+        }
         this.areaDAO.update(area);
+        result.forwardTo(this).lista();
     }
 
     @Post("/area")
     public void adiciona(final Area area) {
         if(area.getDescricao() == null || area.getDescricao().isEmpty())
         {
-            result.use(Results.json()).from(new Retorno("Necessário preencher o campo descrição"));
+            validator.add(new SimpleMessage("alerta", "O campo descrição deve ser preenchido"));
+            validator.onErrorForwardTo(this).formulario();
         }
         this.areaDAO.add(area);
-        result.use(Results.nothing());
+        result.forwardTo(this).lista();
     }
 
     @Delete("/area/{id}")
     public void remove(Area area) {
-        this.areaDAO.remove(area);
+        this.areaDAO.remove(area);  
+        result.forwardTo(this).lista();
     }
 
     @Get("/area")

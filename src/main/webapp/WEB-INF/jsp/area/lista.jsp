@@ -23,6 +23,7 @@
             <tr>
                 <th>#</th>
                 <th>Descrição</th>
+                <th style="width:16px;">-</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +31,8 @@
             <tr>
                 <td>${area.id}</td>
                 <td>${area.descricao}</td>
+                <td>
+                    <a href="<c:url value="/area/${area.id}"/>"><span class="glyphicon glyphicon-pencil"></a></td>
             </tr>
             </c:forEach>
         </tbody>

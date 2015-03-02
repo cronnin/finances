@@ -36,7 +36,7 @@ public class AreaDAODefault implements AreaDAO {
     public Area find(Integer id) {
         try {
             Area area = entityManager
-                    .createQuery("select a from Area a where a.login = :id", Area.class)
+                    .createQuery("select a from Area a where a.id = :id", Area.class)
                     .setParameter("id", id)
                     .getSingleResult();
             return area;
