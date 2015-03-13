@@ -68,8 +68,9 @@ public class AreaController {
     }
 
     @Delete("/area/{id}")
-    public void remove(Area area) {
-        this.areaDAO.remove(area);  
+    public void remove(Integer id) {
+        Area area = this.areaDAO.find(id);
+        this.areaDAO.remove(area);
         result.forwardTo(this).lista();
     }
 

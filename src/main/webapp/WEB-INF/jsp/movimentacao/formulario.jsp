@@ -1,80 +1,58 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="/header.jsp" %> 
+<%@ include file="/header.jsp" %>
+<style>
+    .btn{
+        font-family: Arial;
+    }
+</style>
 
-<form class="form-horizontal">
-  <fieldset>
-    <legend>Legend</legend>
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-      <div class="col-lg-10">
-        <input type="text" class="form-control" id="inputEmail" placeholder="Email">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-      <div class="col-lg-10">
-        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"> Checkbox
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="textArea" class="col-lg-2 control-label">Textarea</label>
-      <div class="col-lg-10">
-        <textarea class="form-control" rows="3" id="textArea"></textarea>
-        <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-lg-2 control-label">Radios</label>
-      <div class="col-lg-10">
-        <div class="radio">
-          <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-            Option one is this
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-            Option two can be something else
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="select" class="col-lg-2 control-label">Selects</label>
-      <div class="col-lg-10">
-        <select class="form-control" id="select">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-        <br>
-        <select multiple="" class="form-control">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-lg-10 col-lg-offset-2">
-        <button type="reset" class="btn btn-default">Cancel</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
-    </div>
-  </fieldset>
-</form>
+<ol class="breadcrumb">
+    <li><a href="/Finances">Home</a></li>
+    <li><a href="<c:url value="/movimentacao"/>">Movimentações</a></li>
+    <li class="active">Formulário</li>
+</ol>
 
+<div class="page-header">
+    <h1>Movimentação <small>Cadastro de gasto</small></h1>
+</div>
 
+<div class="well bs-component">
+    <c:if test="${area eq null}">
+        <form class="form-horizontal" id="formulario" action="<c:url value="/movimentacao"/>" method="POST">
+    </c:if>
+    <c:if test="${area.id > 0}">
+        <form class="form-horizontal" id="formulario" action="<c:url value="/movimentacao/${area.id}"/>" method="POST">
+    </c:if>
+            <fieldset>
+                <legend>Formulário</legend>
 
-<%@ include file="/footer.jsp" %>
+                <c:forEach var="error" items="${errors}">
+                    <div class="alert alert-warning" role="alert">${error.category} - ${error.message}</div>
+                </c:forEach>
+                <input type="hidden" value="${area.id}" name="area.id" />
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-2 control-label">Descrição</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" value="${movimentacao.descricao}" name="movimentacao.descricao" placeholder="descrição da Movimentação"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button type="reset" class="btn btn-default">Limpar</button>
+                        <!--                    <button type="button" onclick="_post($('#formulario'));" class="btn btn-primary">Submit</button>-->
+                        <c:if test="${area eq null}">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </c:if>
+                        <c:if test="${area.id > 0}">
+                            <input type="hidden" name="_method" value="PUT" />
+                            <button class="btn btn-primary">Salvar</button>
+                            <button onclick="_method.value = 'DELETE';" class="btn btn-primary">Remover</button>
+                        </c:if>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+</div>
+
+<%@ include file="/footer.jsp" %> 

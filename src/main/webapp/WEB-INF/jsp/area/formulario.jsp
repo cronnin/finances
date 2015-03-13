@@ -9,8 +9,8 @@
 
 <ol class="breadcrumb">
     <li><a href="/Finances">Home</a></li>
-    <li><a href="<c:url value="/area"/>">Areas</a></li>
-    <li class="active">Novo</li>
+    <li><a href="<c:url value="/area"/>">Áreas</a></li>
+    <li class="active">Formulário</li>
 </ol>
 
 <div class="page-header">
@@ -45,8 +45,9 @@
                             <button type="submit" class="btn btn-primary">Salvar</button>
                         </c:if>
                         <c:if test="${area.id > 0}">
-                            <button name="_method" value="PUT" class="btn btn-primary">Salvar</button>
-                            <button name="_method2" value="DELETE" class="btn btn-primary">Remover</button>
+                            <input type="hidden" name="_method" value="PUT" />
+                            <button class="btn btn-primary">Salvar</button>
+                            <button onclick="_method.value = 'DELETE';" class="btn btn-primary">Remover</button>
                         </c:if>
                     </div>
                 </div>

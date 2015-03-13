@@ -6,7 +6,6 @@
 package net.diogopcoelho.finances.dao;
 
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -17,7 +16,6 @@ import org.hibernate.Session;
  *
  * @author CSI
  */
-@RequestScoped
 public class AreaDAODefault implements AreaDAO {
 
     
