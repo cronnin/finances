@@ -11,6 +11,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.validator.Validator;
 import java.util.List;
 import javax.inject.Inject;
 import net.diogopcoelho.finances.dao.MovimentacaoDAO;
@@ -28,6 +29,9 @@ public class MovimentacaoController {
     
     @Inject
     private MovimentacaoDAO movimentacaoDAO;
+    
+    @Inject
+    Validator validator;
    
 
     @Get("/movimentacao/novo")
@@ -40,13 +44,13 @@ public class MovimentacaoController {
     }
 
     @Put("/movimentacao/{produto.id}")
-    public void altera(Movimentacao produto) {
-        this.movimentacaoDAO.update(produto);
+    public void altera(Movimentacao movimentacao) {
+        this.movimentacaoDAO.update(movimentacao);
     }
 
     @Post("/movimentacao")
-    public void adiciona(final Movimentacao produto) {
-        this.movimentacaoDAO.add(produto);
+    public void adiciona(final Movimentacao movimentacao) {
+        this.movimentacaoDAO.add(movimentacao);
     }
 
     @Delete("/movimentacao/{id}")
