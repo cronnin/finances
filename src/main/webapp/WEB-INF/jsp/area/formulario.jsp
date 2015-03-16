@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label for="inputEmail" class="col-lg-2 control-label">Descrição</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" value="${area.descricao}" name="area.descricao" placeholder="descrição da área"/>
+                        <input type="text" class="form-control" value="${area.descricao}" name="area.descricao" placeholder="Descrição da área"/>
                     </div>
                 </div>
                 <div class="form-group">

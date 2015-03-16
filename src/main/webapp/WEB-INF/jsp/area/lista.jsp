@@ -8,8 +8,8 @@
     }
 </style>
 <ol class="breadcrumb">
-    <li><a href="./">Home</a></li>
-    <li class="active">Area</li>
+    <li><a href="<c:url context="/Finances" value="/"/>">Home</a></li>
+    <li class="active">Áreas</li>
 </ol>
 
 <div class="page-header">
@@ -32,7 +32,8 @@
                 <td>${area.id}</td>
                 <td>${area.descricao}</td>
                 <td>
-                    <a href="<c:url value="/area/${area.id}"/>"><span class="glyphicon glyphicon-pencil"></a></td>
+                    <a href="<c:url context="/Finances" value="/area/${area.id}"/>"><span class="glyphicon glyphicon-pencil"></a>
+                </td>
             </tr>
             </c:forEach>
         </tbody>

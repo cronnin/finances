@@ -8,7 +8,7 @@
     }
 </style>
 <ol class="breadcrumb">
-    <li><a href="./">Home</a></li>
+    <li><a href="<c:url context="/Finances" value="/"/>">Home</a></li>
     <li class="active">Movimentações</li>
 </ol>
 
@@ -36,6 +36,9 @@
                 <td>${movimentacao.tipoEntrada}</td>
                 <td>${movimentacao.valor}</td>
                 <td>${movimentacao.quitado}</td>
+                <td>
+                    <a href="<c:url value="/area/${area.id}"/>"><span class="glyphicon glyphicon-pencil"></a>
+                </td>
             </tr>
             </c:forEach>
         </tbody>

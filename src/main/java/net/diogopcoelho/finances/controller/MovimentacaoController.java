@@ -14,6 +14,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.validator.Validator;
 import java.util.List;
 import javax.inject.Inject;
+import net.diogopcoelho.finances.dao.AreaDAO;
 import net.diogopcoelho.finances.dao.MovimentacaoDAO;
 import net.diogopcoelho.finances.entities.Movimentacao;
 
@@ -31,15 +32,20 @@ public class MovimentacaoController {
     private MovimentacaoDAO movimentacaoDAO;
     
     @Inject
+    private AreaDAO areaDAO;
+    
+    @Inject
     Validator validator;
    
 
     @Get("/movimentacao/novo")
     public void formulario() {
+        result.include("areasList",areaDAO.listAll());
     }
 
     @Get("/movimentacao/{id}")
     public Movimentacao edita(Integer id) {
+        result.include("areasList",areaDAO.listAll());
         return this.movimentacaoDAO.find(id);
     }
 
