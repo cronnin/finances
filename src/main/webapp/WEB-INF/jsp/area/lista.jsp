@@ -8,7 +8,7 @@
     }
 </style>
 <ol class="breadcrumb">
-    <li><a href="<c:url context="/Finances" value="/"/>">Home</a></li>
+    <li><a href="<c:url context="/finances" value="/"/>">Home</a></li>
     <li class="active">Áreas</li>
 </ol>
 
@@ -32,7 +32,7 @@
                 <td>${area.id}</td>
                 <td>${area.descricao}</td>
                 <td>
-                    <a href="<c:url context="/Finances" value="/area/${area.id}"/>"><span class="glyphicon glyphicon-pencil"></a>
+                    <a href="<c:url context="/finances" value="/area/${area.id}"/>"><span class="glyphicon glyphicon-pencil"></a>
                 </td>
             </tr>
             </c:forEach>

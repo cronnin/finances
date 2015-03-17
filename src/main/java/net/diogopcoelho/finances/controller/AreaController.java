@@ -79,4 +79,9 @@ public class AreaController {
         return this.areaDAO.listAll();
     }
     
+     @Get("/area/{paginacao}/{descricao}")
+    public List<Area> dataGridSelect(Integer paginacao, String descricao) {
+        return this.areaDAO.list(paginacao,descricao);
+    }
+    
 }

@@ -8,8 +8,8 @@
 </style>
 
 <ol class="breadcrumb">
-    <li><a href="<c:url context="/Finances" value="/"/>">Home</a></li>
-    <li><a href="<c:url context="/Finances" value="/movimentacao"/>">Movimentações</a></li>
+    <li><a href="<c:url context="/finances" value="/"/>">Home</a></li>
+    <li><a href="<c:url context="/finances" value="/movimentacao"/>">Movimentações</a></li>
     <li class="active">Formulário</li>
 </ol>
 
@@ -19,10 +19,10 @@
 
 <div class="well bs-component">
     <c:if test="${area eq null}">
-        <form class="form-horizontal" id="formulario" action="<c:url context="/Finances" value="/movimentacao"/>" method="POST">
+        <form class="form-horizontal" id="formulario" action="<c:url context="/finances" value="/movimentacao"/>" method="POST">
     </c:if>
     <c:if test="${area.id > 0}">
-        <form class="form-horizontal" id="formulario" action="<c:url context="/Finances" value="/movimentacao/${area.id}"/>" method="POST">
+        <form class="form-horizontal" id="formulario" action="<c:url context="/finances" value="/movimentacao/${area.id}"/>" method="POST">
     </c:if>
             <fieldset>
                 <legend>Formulário</legend>
@@ -45,6 +45,40 @@
                     <div class="col-lg-10">
                         <input type="hidden" name="movimentacao.area.id" value="${movimentacao.area.id}" />
                         <input type="text" id="area" name="movimentacao.area.descricao" value="${movimentacao.area.descricao}" />
+                        <a href="#" data-toggle="modal" data-target="#myModal"><img align="absmiddle" src="<c:url context="/finances" value="/imagens/lupa.png"/>" /></a>
+                        <div class="modal fade" id="myModal"  hidden>
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Selecionar área</h4>
+                                    </div>
+                                    <div class="modal-body" id="bodyModalSelectArea">
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Selecionar</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                        <script>
+                            function buscaDadosArea(paginacao,filtro){
+                                $.ajax({
+                                    type: "GET",
+                                    url: "<c:url context="/finances" value="/area"/>/"+paginacao+"/" + filtro
+                                }).done(function (msg) {
+                                    $("#bodyModalSelectArea").html(msg);
+                                }).fail(function( jqXHR, textStatus ) {
+                                    alert( "Request failed: " + textStatus );
+                                });
+                            }
+                            function selectItem(){
+                                $('#myModal').modal('hide');
+                            }
+                            buscaDadosArea(1,null);
+                        </script>
                     </div>
                 </div>
                     

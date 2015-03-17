@@ -8,7 +8,7 @@
 </style>
 
 <ol class="breadcrumb">
-    <li><a href="/Finances">Home</a></li>
+    <li><a href="/finances">Home</a></li>
     <li><a href="<c:url value="/area"/>">Áreas</a></li>
     <li class="active">Formulário</li>
 </ol>

@@ -8,7 +8,7 @@
     }
 </style>
 <ol class="breadcrumb">
-    <li><a href="<c:url context="/Finances" value="/"/>">Home</a></li>
+    <li><a href="<c:url context="/finances" value="/"/>">Home</a></li>
     <li class="active">Movimentações</li>
 </ol>
 
