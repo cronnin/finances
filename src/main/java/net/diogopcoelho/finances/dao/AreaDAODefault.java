@@ -50,17 +50,22 @@ public class AreaDAODefault implements AreaDAO {
 
     @Override
     public List<Area> list(int paginacao, String descricao) {
-//        Criteria criteria = session.createCriteria(Area.class);
-//
-//        if (descricao != null && !descricao.trim().isEmpty()) {
-//            criteria.add(Restrictions.like("descricao", descricao));
-//        }
-//
-//        return criteria.setFirstResult(((paginacao - 1) * 10) + 1)
-//                .setMaxResults(10)
-//                .list();
-        
-        String sql =  "";
+        List<Area> a = construirConsulta(descricao)
+                .setFirstResult(((paginacao - 1) * 10))
+                .setMaxResults(10)
+                .getResultList();
+        return a;
+    }
+    
+    @Override
+    public int quantidade(int paginacao, String descricao) {
+        int a = (int)Math.ceil(construirConsulta(descricao)
+                .getResultList().size() / 10.00);
+        return a;
+    }
+    
+    public Query construirConsulta(String descricao){
+        String sql =  " select a from Area a ";
         
         if (descricao != null && !descricao.trim().isEmpty()) {
             sql += " where a.descricao like :descricao ";
@@ -72,11 +77,7 @@ public class AreaDAODefault implements AreaDAO {
         {
             query.setParameter("descricao", descricao);
         }
-
-        return query
-                .setFirstResult(((paginacao - 1) * 10) + 1)
-                .setMaxResults(10)
-                .getResultList();
+        return query;
     }
 
     @Override

@@ -43,8 +43,8 @@
                 <div class="form-group">
                     <label for="area" class="col-lg-2 control-label">Área</label>
                     <div class="col-lg-10">
-                        <input type="hidden" name="movimentacao.area.id" value="${movimentacao.area.id}" />
-                        <input type="text" id="area" name="movimentacao.area.descricao" value="${movimentacao.area.descricao}" />
+                        <input type="hidden" id="areaId" name="movimentacao.area.id" value="${movimentacao.area.id}" />
+                        <input type="text" id="areaDesc" name="movimentacao.area.descricao" readonly required value="${movimentacao.area.descricao}" />
                         <a href="#" data-toggle="modal" data-target="#myModal"><img align="absmiddle" src="<c:url context="/finances" value="/imagens/lupa.png"/>" /></a>
                         <div class="modal fade" id="myModal"  hidden>
                             <div class="modal-dialog">
@@ -67,14 +67,16 @@
                             function buscaDadosArea(paginacao,filtro){
                                 $.ajax({
                                     type: "GET",
-                                    url: "<c:url context="/finances" value="/area"/>/"+paginacao+"/" + filtro
+                                    url: "<c:url context="/finances" value="/buscaarea"/>/"+paginacao+"/" + (filtro == '' ? null : filtro)
                                 }).done(function (msg) {
                                     $("#bodyModalSelectArea").html(msg);
                                 }).fail(function( jqXHR, textStatus ) {
                                     alert( "Request failed: " + textStatus );
                                 });
                             }
-                            function selectItem(){
+                            function selectItem(obj){
+                                $("#areaId").val(obj.id);
+                                $("#areaDesc").val(obj.descricao);
                                 $('#myModal').modal('hide');
                             }
                             buscaDadosArea(1,null);

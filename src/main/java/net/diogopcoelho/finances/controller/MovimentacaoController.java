@@ -11,6 +11,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
 import java.util.List;
 import javax.inject.Inject;
@@ -56,7 +57,13 @@ public class MovimentacaoController {
 
     @Post("/movimentacao")
     public void adiciona(final Movimentacao movimentacao) {
+        if(movimentacao.getDescricao() == null || movimentacao.getDescricao().isEmpty())
+        {
+            validator.add(new SimpleMessage("alerta", "O campo descrição deve ser preenchido"));
+            validator.onErrorForwardTo(this).formulario();
+        }
         this.movimentacaoDAO.add(movimentacao);
+        result.forwardTo(this).lista();
     }
 
     @Delete("/movimentacao/{id}")
