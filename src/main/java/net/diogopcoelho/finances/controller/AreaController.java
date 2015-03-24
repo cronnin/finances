@@ -13,7 +13,6 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
-import br.com.caelum.vraptor.view.Results;
 import java.util.List;
 import javax.inject.Inject;
 import net.diogopcoelho.finances.dao.AreaDAO;
@@ -68,14 +67,28 @@ public class AreaController {
     }
 
     @Delete("/area/{id}")
-    public void remove(Area area) {
-        this.areaDAO.remove(area);  
+    public void remove(Integer id) {
+        Area area = this.areaDAO.find(id);
+        this.areaDAO.remove(area);
         result.forwardTo(this).lista();
     }
 
     @Get("/area")
     public List<Area> lista() {
         return this.areaDAO.listAll();
+    }
+    
+    @Get("/buscaarea/{paginacao}/{descricao}")
+    public List<Area> dataGridSelect(Integer paginacao, String descricao) {
+        
+        if(descricao==null || descricao.trim().isEmpty() || descricao.equals("null"))
+                descricao = null;
+         
+        result.include("paginas",this.areaDAO.quantidade(paginacao, descricao));
+        result.include("paginacao", paginacao);
+        result.include("descricao", descricao);
+        
+        return this.areaDAO.list(paginacao,descricao);
     }
     
 }

@@ -44,7 +44,7 @@
 <div id="menu">
     <ul>
         <li>
-            <a>
+            <a href="movimentacao">
             <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
             <span class="label">Movimentações</span>
             </a>

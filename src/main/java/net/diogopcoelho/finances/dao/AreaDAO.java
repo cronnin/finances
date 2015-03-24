@@ -16,6 +16,10 @@ public interface AreaDAO {
     public Area find(Integer id);
 
     public List<Area> listAll();
+    
+    public List<Area> list(int paginacao, String descricao);
+    
+    public int quantidade(int paginacao, String descricao);
 
     public void add(Area area);
 

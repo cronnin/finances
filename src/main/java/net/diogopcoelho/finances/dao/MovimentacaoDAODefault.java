@@ -7,7 +7,6 @@
 package net.diogopcoelho.finances.dao;
 
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -18,7 +17,6 @@ import org.hibernate.Session;
  *
  * @author CSI
  */
-@RequestScoped
 public class MovimentacaoDAODefault implements MovimentacaoDAO {
     private EntityManager entityManager;
     
@@ -30,10 +28,11 @@ public class MovimentacaoDAODefault implements MovimentacaoDAO {
         this.entityManager = entityManager;
     }
     
+    @Override
     public Movimentacao find(Integer id) {
         try {
             Movimentacao movimentacao = entityManager
-                    .createQuery("select a from Movimentacao a where a.login = :id", Movimentacao.class)
+                    .createQuery("select m from Movimentacao m where m.id = :id", Movimentacao.class)
                     .setParameter("id", id)
                     .getSingleResult();
             return movimentacao;
@@ -42,23 +41,28 @@ public class MovimentacaoDAODefault implements MovimentacaoDAO {
         }
     }
 
+    @Override
     public List<Movimentacao> listAll() {
-        return entityManager.createQuery("select a from Movimentacao a", Movimentacao.class).getResultList();
+        return entityManager.createQuery("select m from Movimentacao m", Movimentacao.class).getResultList();
     }
 
+    @Override
     public void add(Movimentacao movimentacao) {
         entityManager.persist(movimentacao);
     }
 
+    @Override
     public Movimentacao refresh(Movimentacao movimentacao) {
         getSession().refresh(movimentacao); // You still can use Hibernate Session
         return movimentacao;
     }
 
+    @Override
     public void update(Movimentacao movimentacao) {
         entityManager.merge(movimentacao);
     }
 
+    @Override
     public void remove(Movimentacao movimentacao) {
         entityManager.remove(movimentacao);
     }

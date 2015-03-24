@@ -6,6 +6,7 @@
 
 package net.diogopcoelho.finances.entities;
 
+import com.google.gson.Gson;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -62,5 +63,9 @@ public class Area implements Serializable {
         }
         return true;
     }
-    
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this); //To change body of generated methods, choose Tools | Templates.
+    }
 }

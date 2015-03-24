@@ -16,3 +16,13 @@ function _post(objForm) {
         alert( "Request failed: " + textStatus );
     });
 }
+
+function putAction(objForm){
+    objForm.append("<input name='_method' value='PUT' />");
+    objForm.submit();
+}
+
+function deleteAction(objForm){
+    objForm.append("<input name='_method' value='DELETE' />");
+    objForm.submit();
+}
