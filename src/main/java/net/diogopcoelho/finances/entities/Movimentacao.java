@@ -7,6 +7,7 @@
 package net.diogopcoelho.finances.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import javax.persistence.Column;
@@ -138,6 +139,12 @@ public class Movimentacao implements Serializable {
 
     public Calendar getData() {
         return data;
+    }
+    
+    public String getDataFormatada() {
+        if(data == null)
+            return "";
+        return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(data.getTime());
     }
 
     public void setData(Calendar data) {

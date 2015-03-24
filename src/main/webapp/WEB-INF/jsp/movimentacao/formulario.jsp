@@ -18,11 +18,11 @@
 </div>
 
 <div class="well bs-component">
-    <c:if test="${area eq null}">
+    <c:if test="${movimentacao eq null}">
         <form class="form-horizontal" id="formulario" action="<c:url context="/finances" value="/movimentacao"/>" method="POST">
     </c:if>
-    <c:if test="${area.id > 0}">
-        <form class="form-horizontal" id="formulario" action="<c:url context="/finances" value="/movimentacao/${area.id}"/>" method="POST">
+    <c:if test="${movimentacao.id > 0}">
+        <form class="form-horizontal" id="formulario" action="<c:url context="/finances" value="/movimentacao/${movimentacao.id}"/>" method="POST">
     </c:if>
             <fieldset>
                 <legend>Formulário</legend>
@@ -31,7 +31,7 @@
                     <div class="alert alert-warning" role="alert">${error.category} - ${error.message}</div>
                 </c:forEach>
                     
-                <input type="hidden" value="${area.id}" name="movimentacao.id" />
+                <input type="hidden" value="${movimentacao.id}" name="movimentacao.id" />
                 
                 <div class="form-group">
                     <label for="descricao" class="col-lg-2 control-label">Descrição</label>
@@ -83,15 +83,39 @@
                         </script>
                     </div>
                 </div>
+                                
+                <div class="form-group">
+                    <label for="tipoEntrada" class="col-lg-2 control-label">Tipo de Movimentação</label>
+                    <div class="col-lg-10">
+                        <select  class="form-control" id="tipoEntrada" required name="movimentacao.tipoEntrada" placeholder="Tipo de Movimentação">
+                            <c:forEach var="tipo" items="${tipos}">
+                                <option value="${tipo.id}" <c:if test="${tipo.id eq movimentacao.tipoEntrada.id}">selected</c:if>>${tipo.descricao}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+                             
+                <div class="form-group">
+                    <label for="valor" class="col-lg-2 control-label">Valor</label>
+                    <div class="col-lg-10">
+                        <input type="number" class="form-control" id="valor" value="${movimentacao.valor}" required name="movimentacao.valor" placeholder="Valor da Movimentação"/>
+                    </div>
+                </div>
+                    
+                <div class="form-group">
+                    <label for="dataMov" class="col-lg-2 control-label">Data</label>
+                    <div class="col-lg-10">
+                        <input type="datetime" class="form-control" id="dataMov" value="${movimentacao.data}" required name="movimentacao.data" placeholder="Data da Movimentação"/>
+                    </div>
+                </div>
                     
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
                         <button type="reset" class="btn btn-default">Limpar</button>
-                        <!--                    <button type="button" onclick="_post($('#formulario'));" class="btn btn-primary">Submit</button>-->
-                        <c:if test="${area eq null}">
+                        <c:if test="${movimentacao eq null}">
                             <button type="submit" class="btn btn-primary">Salvar</button>
                         </c:if>
-                        <c:if test="${area.id > 0}">
+                        <c:if test="${movimentacao.id > 0}">
                             <input type="hidden" name="_method" value="PUT" />
                             <button class="btn btn-primary">Salvar</button>
                             <button onclick="_method.value = 'DELETE';" class="btn btn-primary">Remover</button>

@@ -14,7 +14,7 @@
 
 <div class="page-header">
     <h1>Movimentações <small>Cadastro de gastos</small></h1>
-    <a href="movimentacao/novo" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-file"></span> Novo</a>
+    <a href="<c:url context="/finances" value="/movimentacao/novo"/>" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-file"></span> Novo</a>
 </div>
 
 <div class="bs-component">
@@ -29,15 +29,15 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${areaList}" var="area">
+            <c:forEach items="${movimentacaoList}" var="movimentacao">
             <tr>
-                <td>${movimentacao.data}</td>
+                <td>${movimentacao.dataFormatada}</td>
                 <td>${movimentacao.descricao}</td>
                 <td>${movimentacao.tipoEntrada}</td>
                 <td>${movimentacao.valor}</td>
                 <td>${movimentacao.quitado}</td>
                 <td>
-                    <a href="<c:url value="/area/${area.id}"/>"><span class="glyphicon glyphicon-pencil"></a>
+                    <a href="<c:url value="/movimentacao/${movimentacao.id}"/>"><span class="glyphicon glyphicon-pencil"></a>
                 </td>
             </tr>
             </c:forEach>
