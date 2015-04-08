@@ -25,6 +25,8 @@ public class Cartao implements Serializable {
     @GeneratedValue
     @Column(name = "CARTAO_ID")
     private Integer id;
+    @Column(name = "CARTAO_DESCRICAO")
+    private String descricao;
     @Column(name = "CARTAO_BANDEIRA")
     private String bandeira;
     @Column(name = "CAETAO_VENCIMENTO")
@@ -71,6 +73,20 @@ public class Cartao implements Serializable {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the descricao
+     */
+    public String getDescricao() {
+        return descricao;
+    }
+
+    /**
+     * @param descricao the descricao to set
+     */
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
     
     

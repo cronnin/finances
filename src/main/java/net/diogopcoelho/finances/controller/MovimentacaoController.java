@@ -48,6 +48,7 @@ public class MovimentacaoController {
 
     @Get("/movimentacao/{id}")
     public Movimentacao formulario(Integer id) {
+        validator.onErrorUsePageOf(this).lista();
         result.include("areasList",areaDAO.listAll());
         result.include("tipos",TipoEntrada.values());
         return this.movimentacaoDAO.find(id);
@@ -55,6 +56,7 @@ public class MovimentacaoController {
 
     @Put("/movimentacao/{produto.id}")
     public void altera(Movimentacao movimentacao) {
+        validator.onErrorUsePageOf(this).lista();
         if(movimentacao.getDescricao() == null || movimentacao.getDescricao().isEmpty())
         {
             validator.add(new SimpleMessage("alerta", "O campo descrição deve ser preenchido"));
@@ -66,6 +68,7 @@ public class MovimentacaoController {
 
     @Post("/movimentacao")
     public void adiciona(final Movimentacao movimentacao) {
+        validator.onErrorUsePageOf(this).lista();
         if(movimentacao.getDescricao() == null || movimentacao.getDescricao().isEmpty())
         {
             validator.add(new SimpleMessage("alerta", "O campo descrição deve ser preenchido"));
@@ -77,6 +80,7 @@ public class MovimentacaoController {
 
     @Delete("/movimentacao/{id}")
     public void remove(Integer id) {
+        validator.onErrorUsePageOf(this).lista();
         Movimentacao movimentacao = this.movimentacaoDAO.find(id);
         this.movimentacaoDAO.remove(movimentacao);
         result.forwardTo(this).lista();

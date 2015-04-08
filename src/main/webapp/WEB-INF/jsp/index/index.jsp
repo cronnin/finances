@@ -39,7 +39,7 @@
 </ol>
 
 <div class="page-header">
-  <h1>Example page header <small>Welcome to herse</small></h1>
+  <h1>Finances <small>Controle financeiro</small></h1>
 </div>
 <div id="menu">
     <ul>
@@ -52,7 +52,19 @@
         <li>
             <a href="area">
             <span class="glyphicon glyphicon-user"></span>
-            <span class="label">Area</span>
+            <span class="label">Áreas</span>
+            </a>
+        </li>
+        <li>
+            <a href="cartao">
+            <span class="glyphicon glyphicon-user"></span>
+            <span class="label">Cartões</span>
+            </a>
+        </li>
+        <li>
+            <a href="teste">
+            <span class="glyphicon glyphicon-user"></span>
+            <span class="label">Teste</span>
             </a>
         </li>
     </ul>

@@ -89,7 +89,7 @@
                     <div class="col-lg-10">
                         <select  class="form-control" id="tipoEntrada" required name="movimentacao.tipoEntrada" placeholder="Tipo de Movimentação">
                             <c:forEach var="tipo" items="${tipos}">
-                                <option value="${tipo.id}" <c:if test="${tipo.id eq movimentacao.tipoEntrada.id}">selected</c:if>>${tipo.descricao}</option>
+                                <option value="${tipo}" <c:if test="${tipo.id eq movimentacao.tipoEntrada.id}">selected</c:if>>${tipo.descricao}</option>
                             </c:forEach>
                         </select>
                     </div>
