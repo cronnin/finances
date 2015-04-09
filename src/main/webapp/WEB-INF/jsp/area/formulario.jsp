@@ -20,10 +20,10 @@
 <div class="well bs-component">
     <c:if test="${area eq null}">
         <form class="form-horizontal" id="formulario" action="<c:url value="/area"/>" method="POST">
-    </c:if>
-    <c:if test="${area.id > 0}">
-        <form class="form-horizontal" id="formulario" action="<c:url value="/area/${area.id}"/>" method="POST">
-    </c:if>
+        </c:if>
+        <c:if test="${area.id > 0}">
+            <form class="form-horizontal" id="formulario" action="<c:url value="/area/${area.id}"/>" method="POST">
+            </c:if>
             <fieldset>
                 <legend>Área</legend>
 
@@ -53,6 +53,19 @@
                 </div>
             </fieldset>
         </form>
-</div>
 
+</div>
+                    <div id="SkypeButton">
+                    </div>
+        <div id="call_32" style="width:50px;background-color:#0094ff">
+            <script type="text/javascript">
+                Skype.ui({
+                    name: "call",
+                    element: "call_32",
+                    participants: ["matheus.canal", "felipe.chagas18", "josapah"],
+                    imageSize: 12,
+                    imageColor: "white"
+                });
+            </script>
+        </div>
 <%@ include file="/footer.jsp" %> 
