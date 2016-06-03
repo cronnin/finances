@@ -52,7 +52,7 @@ public class Movimentacao implements Serializable {
     private double valor;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "movimentacao")
     private Collection<Parcela> parcelas;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "MOVIMENTACAO_DATA")
     private Calendar data;
     @Temporal(TemporalType.DATE)
