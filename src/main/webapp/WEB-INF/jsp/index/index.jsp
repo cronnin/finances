@@ -41,7 +41,7 @@
 <div class="page-header">
   <h1>Finances <small>Controle financeiro</small></h1>
 </div>
-<div id="menu">
+<div id="menu" class="btn-group" role="group">
     <ul>
         <li>
             <a href="movimentacao">

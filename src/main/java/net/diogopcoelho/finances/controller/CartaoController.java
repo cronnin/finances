@@ -55,13 +55,13 @@ public class CartaoController {
     }
 
     @Post("/cartao")
-    public void adiciona(final Cartao area) {
-        if(area.getDescricao() == null || area.getDescricao().isEmpty())
+    public void adiciona(final Cartao cartao) {
+        if(cartao.getDescricao() == null || cartao.getDescricao().isEmpty())
         {
             validator.add(new SimpleMessage("alerta", "O campo descrição deve ser preenchido"));
             validator.onErrorForwardTo(this).formulario();
         }
-        this.cartaoDAO.add(area);
+        this.cartaoDAO.add(cartao);
         result.forwardTo(this).lista();
     }
 
