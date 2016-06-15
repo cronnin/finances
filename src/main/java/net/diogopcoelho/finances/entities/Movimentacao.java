@@ -8,8 +8,7 @@ package net.diogopcoelho.finances.entities;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,7 +18,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,7 +34,7 @@ public class Movimentacao implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "MOVIMENTACAO_ID")
-    private Integer id;
+    private Long id;
     @Column(name = "MOVIMENTACAO_DESCRICAO")
     private String descricao;
     @ManyToOne(fetch = FetchType.EAGER)
@@ -50,14 +48,12 @@ public class Movimentacao implements Serializable {
     private TipoEntrada tipoEntrada;
     @Column(name = "MOVIMENTACAO_VALOR")
     private double valor;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "movimentacao")
-    private Collection<Parcela> parcelas;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "MOVIMENTACAO_DATA")
-    private Calendar data;
+    private Date data;
     @Temporal(TemporalType.DATE)
     @Column(name = "MOVIMENTACAO_PAGAMENTO")
-    private Calendar pagemento;
+    private Date pagemento;
     @Column(name = "MOVIMENTACAO_QUITADO")
     private boolean quitado;
     
@@ -81,11 +77,11 @@ public class Movimentacao implements Serializable {
         return true;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -129,15 +125,7 @@ public class Movimentacao implements Serializable {
         this.valor = valor;
     }
 
-    public Collection<Parcela> getParcelas() {
-        return parcelas;
-    }
-
-    public void setParcelas(Collection<Parcela> parcelas) {
-        this.parcelas = parcelas;
-    }
-
-    public Calendar getData() {
+    public Date getData() {
         return data;
     }
     
@@ -147,15 +135,15 @@ public class Movimentacao implements Serializable {
         return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(data.getTime());
     }
 
-    public void setData(Calendar data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
-    public Calendar getPagemento() {
+    public Date getPagemento() {
         return pagemento;
     }
 
-    public void setPagemento(Calendar pagemento) {
+    public void setPagemento(Date pagemento) {
         this.pagemento = pagemento;
     }
 

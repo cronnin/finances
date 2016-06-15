@@ -29,7 +29,7 @@ public class MovimentacaoDAODefault implements MovimentacaoDAO {
     }
     
     @Override
-    public Movimentacao find(Integer id) {
+    public Movimentacao find(Long id) {
         try {
             Movimentacao movimentacao = entityManager
                     .createQuery("select m from Movimentacao m where m.id = :id", Movimentacao.class)

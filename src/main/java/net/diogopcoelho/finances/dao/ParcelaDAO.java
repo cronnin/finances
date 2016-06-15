@@ -6,10 +6,19 @@
 
 package net.diogopcoelho.finances.dao;
 
+import java.util.List;
+import net.diogopcoelho.finances.entities.Compra;
+import net.diogopcoelho.finances.entities.Parcela;
+
 /**
  *
  * @author CSI
  */
 public interface ParcelaDAO {
-    
+    public Parcela find(Long id);
+    public List<Parcela> listAll();
+    public void add(Parcela parcela);
+    public Parcela refresh(Parcela parcela);
+    public void update(Parcela parcela);
+    public void remove(Parcela parcela);
 }

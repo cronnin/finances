@@ -13,7 +13,7 @@ import net.diogopcoelho.finances.entities.Movimentacao;
  * @author coelho
  */
 public interface MovimentacaoDAO {
-    public Movimentacao find(Integer id);
+    public Movimentacao find(Long id);
     public List<Movimentacao> listAll();
     public void add(Movimentacao movimentacao);
     public Movimentacao refresh(Movimentacao movimentacao);
