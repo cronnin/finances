@@ -8,6 +8,7 @@ package ne.diogopcoelho.financespro.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,23 +35,24 @@ public abstract class GenericController<T extends Serializable,Pk extends Serial
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.service(req, resp);
-        String url = "../jsp/" + this.clazz.getSimpleName().toLowerCase() + "/" + req.getPathInfo() + ".jsp";
-        req.setAttribute("metodo", req.getPathInfo());
-        req.setAttribute("target","listar");
-    }
-
-    @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                 
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<T> lista = this.dao.listAll();
-        req.setAttribute("lista", lista);
-        req.getRequestDispatcher((String)req.getAttribute("target"));
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {        
+        
+        String url = "";
+        if("/novo".equals(req.getPathInfo())) {
+            url = novo();
+        }else {
+            url = lista(req);
+        }
+        
+        url = finPath(url, req);
+        
+        RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+        dispatcher.forward(req, resp);
     }
 
     @Override
@@ -61,6 +63,26 @@ public abstract class GenericController<T extends Serializable,Pk extends Serial
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
+    }
+    
+    protected String finPath(String deafultPath, HttpServletRequest req){
+        
+        String defaultPath = req.getPathInfo();
+        if(defaultPath==null)
+            defaultPath = deafultPath;
+        
+        return "/WEB-INF/jsp/" + this.clazz.getSimpleName().toLowerCase() + defaultPath + ".jsp";
+        
+    }
+
+    protected String novo() {
+        return "/novo";
+    }
+
+    protected String lista(HttpServletRequest req) {
+        List<T> lista = this.dao.listAll();
+        req.setAttribute("lista", lista);
+        return "/lista";
     }
     
 }

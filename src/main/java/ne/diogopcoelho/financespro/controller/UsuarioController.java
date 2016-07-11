@@ -16,7 +16,12 @@ import ne.diogopcoelho.financespro.entity.Usuario;
  */
 @WebServlet(urlPatterns = {"/usuario/*"})
 public class UsuarioController extends GenericController<Usuario, Long>{
+    
+    @Deprecated
+    public UsuarioController() {
+    }
 
+    
     @Inject
     public UsuarioController(UsuarioDAO dao) {
         super(Usuario.class, dao);

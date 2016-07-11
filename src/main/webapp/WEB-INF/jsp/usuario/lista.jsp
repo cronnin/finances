@@ -8,24 +8,24 @@
     <body>
         <h1>Hello World!</h1>
         <table class="table table-striped table-hover ">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Login</th>
-                <th>-</th>
-            </tr>
-        </thead>
-        <tbody>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Login</th>
+                    <th>-</th>
+                </tr>
+            </thead>
+            <tbody>
             <c:forEach items="${lista}" var="usuario">
-            <tr>
-                <td>${usuario.nome}</td>
-                <td>${usuario.login}</td>
-                <td>
-                    <a href=""/>"><span class="glyphicon glyphicon-pencil"></a>
-                </td>
-            </tr>
+                <tr>
+                    <td>${usuario.nome}</td>
+                    <td>${usuario.login}</td>
+                    <td>
+                        <a href=""><span class="glyphicon glyphicon-pencil"></a>
+                    </td>
+                </tr>
             </c:forEach>
         </tbody>
     </table> 
-    </body>
+</body>
 </html>

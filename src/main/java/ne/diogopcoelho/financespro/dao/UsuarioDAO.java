@@ -9,6 +9,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import ne.diogopcoelho.financespro.entity.Usuario;
+import org.hibernate.Session;
 
 /**
  *
@@ -16,9 +17,14 @@ import ne.diogopcoelho.financespro.entity.Usuario;
  */
 @RequestScoped
 public class UsuarioDAO extends GenericDAO<Usuario,Long> {
+
+    @Deprecated
+    public UsuarioDAO() {
+        super(null, null);
+    }
     
     @Inject
-    public UsuarioDAO(EntityManager entityManager) {
+    public UsuarioDAO(Session entityManager) {
         super(Usuario.class, entityManager);
     }
     

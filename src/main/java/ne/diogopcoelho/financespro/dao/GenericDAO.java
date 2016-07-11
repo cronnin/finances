@@ -18,27 +18,27 @@ import org.hibernate.Session;
  * @param <T>
  * @param <Pk>
  */
-public class GenericDAO<T extends Serializable, Pk extends Serializable> {
+public abstract class GenericDAO<T extends Serializable, Pk extends Serializable> {
 
-    protected EntityManager entityManager;
+    protected Session entityManager;
     protected Class clazz;
     
     @Inject
-    public GenericDAO(Class clazz, EntityManager entityManager) {
+    public GenericDAO(Class clazz, Session entityManager) {
         this.entityManager = entityManager;
         this.clazz = clazz;
     }
     
     public T find(Pk id) {
         try {
-            return (T) getSession().load(clazz, id);
+            return (T) entityManager.load(clazz, id);
         } catch (NoResultException e) {
             return null;
         }
     }
     
     public List<T> listAll() {
-        return getSession().createCriteria(clazz).list();
+        return entityManager.createCriteria(clazz).list();
     }
 
     public void add(T registro) {
@@ -46,7 +46,7 @@ public class GenericDAO<T extends Serializable, Pk extends Serializable> {
     }
 
     public T refresh(T registro) {
-        getSession().refresh(registro); // You still can use Hibernate Session
+        entityManager.refresh(registro); // You still can use Hibernate Session
         return registro;
     }
     
@@ -55,10 +55,7 @@ public class GenericDAO<T extends Serializable, Pk extends Serializable> {
     }
 
     public void remove(T registro) {
-        entityManager.remove(registro);
+        entityManager.delete(registro);
     }
     
-    protected Session getSession() {
-        return entityManager.unwrap(Session.class);
-    }
 }
