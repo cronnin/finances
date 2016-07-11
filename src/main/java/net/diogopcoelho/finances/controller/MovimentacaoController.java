@@ -26,39 +26,37 @@ import net.diogopcoelho.finances.entities.enuns.TipoEntrada;
  */
 @Controller
 public class MovimentacaoController {
-    
+
     @Inject
     private Result result;
-    
+
     @Inject
     private MovimentacaoDAO movimentacaoDAO;
-    
+
     @Inject
     private AreaDAO areaDAO;
-    
+
     @Inject
     Validator validator;
-   
 
     @Get("/movimentacao/novo")
     public void formulario() {
-        result.include("areasList",areaDAO.listAll());
-        result.include("tipos",TipoEntrada.values());
+        result.include("areasList", areaDAO.listAll());
+        result.include("tipos", TipoEntrada.values());
     }
 
     @Get("/movimentacao/{id}")
     public Movimentacao formulario(Integer id) {
         validator.onErrorUsePageOf(this).lista();
-        result.include("areasList",areaDAO.listAll());
-        result.include("tipos",TipoEntrada.values());
+        result.include("areasList", areaDAO.listAll());
+        result.include("tipos", TipoEntrada.values());
         return this.movimentacaoDAO.find(id);
     }
 
     @Put("/movimentacao/{produto.id}")
     public void altera(Movimentacao movimentacao) {
         validator.onErrorUsePageOf(this).lista();
-        if(movimentacao.getDescricao() == null || movimentacao.getDescricao().isEmpty())
-        {
+        if (movimentacao.getDescricao() == null || movimentacao.getDescricao().isEmpty()) {
             validator.add(new SimpleMessage("alerta", "O campo descrição deve ser preenchido"));
             validator.onErrorForwardTo(this).formulario();
         }
@@ -69,8 +67,7 @@ public class MovimentacaoController {
     @Post("/movimentacao")
     public void adiciona(final Movimentacao movimentacao) {
         validator.onErrorUsePageOf(this).lista();
-        if(movimentacao.getDescricao() == null || movimentacao.getDescricao().isEmpty())
-        {
+        if (movimentacao.getDescricao() == null || movimentacao.getDescricao().isEmpty()) {
             validator.add(new SimpleMessage("alerta", "O campo descrição deve ser preenchido"));
             validator.onErrorForwardTo(this).formulario();
         }

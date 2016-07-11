@@ -9,7 +9,6 @@ package net.diogopcoelho.finances.entities;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,7 +18,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,16 +40,11 @@ public class Movimentacao implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(columnDefinition = "MOVIMENTACAO_AREA")
     private Area area;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(columnDefinition = "MOVIMENTACAO_CARTAO")
-    private Cartao cartao;
     @Column(name = "MOVIMENTACAO_TIPO")
     @Enumerated(EnumType.STRING)
     private TipoEntrada tipoEntrada;
     @Column(name = "MOVIMENTACAO_VALOR")
     private double valor;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "movimentacao")
-    private Collection<Parcela> parcelas;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "MOVIMENTACAO_DATA")
     private Calendar data;
@@ -105,14 +98,6 @@ public class Movimentacao implements Serializable {
         this.area = area;
     }
 
-    public Cartao getCartao() {
-        return cartao;
-    }
-
-    public void setCartao(Cartao cartao) {
-        this.cartao = cartao;
-    }
-
     public TipoEntrada getTipoEntrada() {
         return tipoEntrada;
     }
@@ -127,14 +112,6 @@ public class Movimentacao implements Serializable {
 
     public void setValor(double valor) {
         this.valor = valor;
-    }
-
-    public Collection<Parcela> getParcelas() {
-        return parcelas;
-    }
-
-    public void setParcelas(Collection<Parcela> parcelas) {
-        this.parcelas = parcelas;
     }
 
     public Calendar getData() {
