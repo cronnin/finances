@@ -24,6 +24,8 @@
         <script src="<c:url value="/finances.js"/>"></script>
         
         <script src="<c:url value="/skype-uri.js"/>"></script>
+        
+        <link rel="import" href="../bower_components/paper-slider/paper-slider.html">
     </head>
     <body>
         <div class="container-fluid">

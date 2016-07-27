@@ -7,76 +7,47 @@
         margin: 0px;
         padding: 0px;
     }
-    #menu ul{
-        padding-left: 0px;
-        list-style: none;
-    }
-    #menu li{
-        float: left;
-        height: 85px;
-        padding: 10px;
-        text-align: center;
-        cursor: pointer;
-        background-color: #faf2cc;
-        width: 12.5%;
-        border: 1px solid #fff;
-    }
-    #menu span.glyphicon{
-        margin-top: 5px;
-        margin-bottom: 10px;
-        font-size: 24px;       
-    }
-    #menu span.label{
-        display: block;
-        text-align: center;
-        word-break: break-all;
-        color: #333;
+    #menu button{
+        min-width: 100px;
+        min-height: 100px;
+        margin: 2px;
+        color: #333333;
     }
 </style>
 
 <ol class="breadcrumb">
-  <li class="active">Home</li>
+    <li class="active">Home</li>
 </ol>
 
 <div class="page-header">
-  <h1>Finances <small>Controle financeiro</small></h1>
+    <h1>Finances <small>Controle financeiro</small></h1>
 </div>
 <div id="menu" class="btn-group" role="group">
-    <ul>
-        <li>
-            <a href="movimentacao">
+    <form method="GET">
+        <button class="btn btn-default" formaction="movimentacao">
             <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
-            <span class="label">Movimentações</span>
-            </a>
-        </li>
-        <li>
-            <a href="area">
+            <span>Movimentações</span>
+        </button>
+        <button class="btn btn-default" formaction="area">
             <span class="glyphicon glyphicon-user"></span>
-            <span class="label">Áreas</span>
-            </a>
-        </li>
-        <li>
-            <a href="cartao">
+            <span>Áreas</span>
+        </button>
+        <button class="btn btn-default" formaction="cartao">
             <span class="glyphicon glyphicon-user"></span>
-            <span class="label">Cartões</span>
-            </a>
-        </li>
-        <li>
-            <a href="teste">
-            <span class="glyphicon glyphicon-user"></span>
-            <span class="label">Teste</span>
-            </a>
-        </li>
-    </ul>
+            <span>Cartões</span>
+        </button>
+    </form>
+    
+    <paper-slider min="-100" max="100" value="50"></paper-slider>
 </div>
 
 <script>
-    $(function(){
-        $("#menu li").mouseover(function(){
-                $( this ).css("border","1px solid black");
+    $(function () {
+        $("#menu li").mouseover(function () {
+            $(this).css("border", "1px solid black");
         });
-        $("#menu li").mouseout(function(){
-                $( this ).css("border","1px solid white");
+        $("#menu li").mouseout(function () {
+            $(this).css("border", "1px solid white");
         });
     });
 </script>

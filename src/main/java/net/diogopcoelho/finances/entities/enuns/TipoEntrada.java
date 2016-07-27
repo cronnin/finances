@@ -11,7 +11,7 @@ package net.diogopcoelho.finances.entities.enuns;
  * @author diogo.coelho
  */
 public enum TipoEntrada {
-    CREDITO(1,"Crédito"), DEBITO(2,"Débito");
+    CREDITO(1,"Crédito"), DEBITO(2,"Débito"), PARCELADO(3,"Parcelado");
     
     private int id;
     private String descricao;

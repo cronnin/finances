@@ -7,7 +7,7 @@
 package net.diogopcoelho.finances.entities;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,47 +30,55 @@ public class Parcela  implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "PARCELA_ID")
-    private Integer id;
+    private Long id;
     @Column(name = "PARCELA_VALOR")
-    private double valor;
+    private Double valor;
     @Temporal(TemporalType.DATE)
     @Column(name = "PARCELA_VENCIMENTO")
-    private Calendar vencimento;
+    private Date vencimento;
     @Column(name = "PARCELA_PAGO")
-    private boolean pago;
+    private Boolean pago;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(columnDefinition = "MOVIMENTACAO_ID")
-    private Movimentacao movimentacao;
+    @JoinColumn(columnDefinition = "COMPRA_ID")
+    private Compra compra;
 
-    public Integer getId() {
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
-    public Calendar getVencimento() {
+    public Date getVencimento() {
         return vencimento;
     }
 
-    public void setVencimento(Calendar vencimento) {
+    public void setVencimento(Date vencimento) {
         this.vencimento = vencimento;
     }
 
-    public boolean isPago() {
+    public Boolean isPago() {
         return pago;
     }
 
-    public void setPago(boolean pago) {
+    public void setPago(Boolean pago) {
         this.pago = pago;
     }
     
@@ -91,13 +99,5 @@ public class Parcela  implements Serializable {
             return false;
         }
         return true;
-    }
-
-    public Movimentacao getMovimentacao() {
-        return movimentacao;
-    }
-
-    public void setMovimentacao(Movimentacao movimentacao) {
-        this.movimentacao = movimentacao;
     }
 }

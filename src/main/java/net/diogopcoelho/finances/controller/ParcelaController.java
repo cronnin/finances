@@ -38,7 +38,7 @@ public class ParcelaController {
     }
 
     @Get("/parcela/{id}")
-    public Parcela formulario(Integer id) {
+    public Parcela formulario(Long id) {
         validator.onErrorUsePageOf(this).lista();
         return this.parcelaDAO.find(id);
     }
@@ -56,7 +56,7 @@ public class ParcelaController {
     }
 
     @Delete("/parcela/{id}")
-    public void remove(Integer id) {
+    public void remove(Long id) {
         validator.onErrorUsePageOf(this).lista();
         Parcela parcela = this.parcelaDAO.find(id);
         this.parcelaDAO.remove(parcela);

@@ -6,10 +6,17 @@
 package net.diogopcoelho.finances.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,32 +25,44 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "COMPRAS")
-public class Compra  implements Serializable {
+public class Compra implements Serializable {
     
     @Id
     @GeneratedValue
     @Column(name = "COMPRA_ID")
-    private Integer id;
-    
-    @Column(name = "COMPRA_DESCRICAO")
-    private String descricao;
+    private Long id;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "compra")
+    private final List<Parcela> parcelas = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(columnDefinition = "CARTAO_ID")
+    private Cartao cartao;
+    @OneToOne
+    @JoinColumn(columnDefinition = "MOVIMENTACAO_ID")
+    private Movimentacao movimentacao;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public Cartao getCartao() {
+        return cartao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setCartao(Cartao cartao) {
+        this.cartao = cartao;
     }
-    
+
+    public Movimentacao getMovimentacao() {
+        return movimentacao;
+    }
+
+    public void setMovimentacao(Movimentacao movimentacao) {
+        this.movimentacao = movimentacao;
+    }
     
     
 }

@@ -9,7 +9,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import net.diogopcoelho.finances.entities.Movimentacao;
 import net.diogopcoelho.finances.entities.Parcela;
 import org.hibernate.Session;
 
@@ -24,13 +23,14 @@ public class ParcelaDAODefault implements ParcelaDAO {
     @Deprecated // CDI eyes only
     public ParcelaDAODefault() {
     }
+    
     @Inject
     public ParcelaDAODefault(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
     
     @Override
-    public Parcela find(Integer id) {
+    public Parcela find(Long id) {
         try {
             Parcela parcela = entityManager
                     .createQuery("select m from Movimentacao m where m.id = :id", Parcela.class)
@@ -68,7 +68,7 @@ public class ParcelaDAODefault implements ParcelaDAO {
         entityManager.remove(parcela);
     }
     
-    private Session getSession() {
+     private Session getSession() {
         return entityManager.unwrap(Session.class);
     }
 }

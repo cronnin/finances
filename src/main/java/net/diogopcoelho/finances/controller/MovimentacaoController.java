@@ -46,7 +46,7 @@ public class MovimentacaoController {
     }
 
     @Get("/movimentacao/{id}")
-    public Movimentacao formulario(Integer id) {
+    public Movimentacao formulario(Long id) {
         validator.onErrorUsePageOf(this).lista();
         result.include("areasList", areaDAO.listAll());
         result.include("tipos", TipoEntrada.values());
@@ -76,7 +76,7 @@ public class MovimentacaoController {
     }
 
     @Delete("/movimentacao/{id}")
-    public void remove(Integer id) {
+    public void remove(Long id) {
         validator.onErrorUsePageOf(this).lista();
         Movimentacao movimentacao = this.movimentacaoDAO.find(id);
         this.movimentacaoDAO.remove(movimentacao);
