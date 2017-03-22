@@ -1,35 +1,40 @@
-package com.financesm.dao;
+package com.financesm.sqlhelper;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.financesm.core.annotation.CampoDB;
-import com.financesm.core.annotation.CampoDB.TipoCampo;
 
 import java.io.Serializable;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 /**
  * Created by diogo.coelho on 14/03/2017.
  */
 
-public abstract class Dao<T extends Serializable> extends SQLiteOpenHelper {
+public abstract class AbstractHelper<T extends Serializable> extends SQLiteOpenHelper {
 
-    private static final String DATA_BASE_NAME = "financesmdb";
-    private static final int DATABASE_VERSION = 1;
-    private final String DICTIONARY_TABLE_NAME;
-    private final String DICTIONARY_TABLE_CREATE;
+    public static final String DATA_BASE_NAME = "financesmdb";
+    public static final int DATABASE_VERSION = 1;
+    public final String DICTIONARY_TABLE_NAME;
+    public final String DICTIONARY_ID_COLUMN;
+    public final String DICTIONARY_TABLE_CREATE;
 
-    public Dao(String dictionaryTableName, Context context, SQLiteDatabase.CursorFactory factory) {
+    public AbstractHelper(String dictionaryTableName, String idColumn, Context context, SQLiteDatabase.CursorFactory factory) {
         super(context, DATA_BASE_NAME, factory, DATABASE_VERSION);
         this.DICTIONARY_TABLE_NAME = dictionaryTableName;
+        this.DICTIONARY_ID_COLUMN = idColumn;
         DICTIONARY_TABLE_CREATE = "CREATE TABLE " + DICTIONARY_TABLE_NAME + " ( " +
                getCampos() + " );";
     }
 
-    private String getCampos() {
+    public String[] getArrayCampos() {
+        return null;
+    }
+
+    public String getCampos() {
 
         StringBuilder sb = new StringBuilder();
 
@@ -64,10 +69,22 @@ public abstract class Dao<T extends Serializable> extends SQLiteOpenHelper {
 
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DICTIONARY_TABLE_CREATE);
     }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.w(this.getClass().getName(),
+                "Upgrading database from version " + oldVersion + " to "
+                        + newVersion + ", which will destroy all old data");
+        db.execSQL("DROP TABLE IF EXISTS " + this.DICTIONARY_TABLE_NAME);
+        onCreate(db);
+    }
+
+
+
+
 
 }
