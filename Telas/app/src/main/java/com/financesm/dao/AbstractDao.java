@@ -11,6 +11,7 @@ import com.financesm.core.db.Identificavel;
 import com.financesm.sqlhelper.AbstractHelper;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public abstract class AbstractDao <T extends Identificavel> {
 
         ContentValues values = new ContentValues();
 
-        inserirCampos(values);
+        inserirCampos(values, registro);
 
         long insertId =
                 database.insert(dbHelper.DICTIONARY_TABLE_NAME, null,
@@ -66,17 +67,51 @@ public abstract class AbstractDao <T extends Identificavel> {
             c = f.getAnnotation(CampoDB.class);
             if(c != null) {
 
-                values.put( (c.alias().isEmpty() ? f.getName() : c.alias()) ,
-                        getFielValue(f, registro));
+                switch (c.tipo()){
+                    case INTEIRO:
+                        values.put( (c.alias().isEmpty() ? f.getName() : c.alias()) ,
+                                getIntValue(f, registro));
+                        break;
+                    case DECIMAL:
+                        values.put( (c.alias().isEmpty() ? f.getName() : c.alias()) ,
+                                getStringValue(f, registro));
+                        break;
+                    case DATE:
+                        values.put( (c.alias().isEmpty() ? f.getName() : c.alias()) ,
+                                getStringValue(f, registro));
+                        break;
+                    case TEXT:
+                        default:
+                            values.put( (c.alias().isEmpty() ? f.getName() : c.alias()) ,
+                                    getStringValue(f, registro));
+                }
+
 
             }
         }
 
     }
 
-    private String getFielValue(Field f, T registro) {
+    private Integer getIntValue(Field f, T registro) {
+        Integer ret = null;
+        try{
+            ret = (Integer)clazz.getDeclaredMethod("get"+f.getName(), String.class).invoke(registro);
+        }
+        catch (NoSuchMethodException ex){}
+        catch (InvocationTargetException e) {}
+        catch (IllegalAccessException e) {}
+        return ret;
+    }
 
-        return null;
+    private String getStringValue(Field f, T registro) {
+        String ret = null;
+        try{
+            ret = (String)clazz.getDeclaredMethod("get"+f.getName(), String.class).invoke(registro);
+        }
+        catch (NoSuchMethodException ex){}
+        catch (InvocationTargetException e) {}
+        catch (IllegalAccessException e) {}
+        return ret;
     }
 
     public void deleteComment(T registro) {
