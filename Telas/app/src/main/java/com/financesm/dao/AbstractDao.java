@@ -13,6 +13,7 @@ import com.financesm.sqlhelper.AbstractHelper;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -70,15 +71,15 @@ public abstract class AbstractDao <T extends Identificavel> {
                 switch (c.tipo()){
                     case INTEIRO:
                         values.put( (c.alias().isEmpty() ? f.getName() : c.alias()) ,
-                                getIntValue(f, registro));
+                                getLongValue(f, registro));
                         break;
                     case DECIMAL:
                         values.put( (c.alias().isEmpty() ? f.getName() : c.alias()) ,
-                                getStringValue(f, registro));
+                                getDoubleValue(f, registro));
                         break;
                     case DATE:
                         values.put( (c.alias().isEmpty() ? f.getName() : c.alias()) ,
-                                getStringValue(f, registro));
+                                getDateValue(f, registro));
                         break;
                     case TEXT:
                         default:
@@ -92,10 +93,36 @@ public abstract class AbstractDao <T extends Identificavel> {
 
     }
 
-    private Integer getIntValue(Field f, T registro) {
-        Integer ret = null;
+    private Long getDateValue(Field f, T registro) {
+        Date ret = null;
         try{
-            ret = (Integer)clazz.getDeclaredMethod("get"+f.getName(), String.class).invoke(registro);
+            ret = (Date)clazz.getDeclaredMethod("get"+f.getName(), Date.class).invoke(registro);
+        }
+        catch (NoSuchMethodException ex){}
+        catch (InvocationTargetException e) {}
+        catch (IllegalAccessException e) {}
+
+        if(ret != null)
+            return ret.getTime();
+        else
+            return null;
+    }
+
+    private Double getDoubleValue(Field f, T registro) {
+        Double ret = null;
+        try{
+            ret = (Double)clazz.getDeclaredMethod("get"+f.getName(), Double.class).invoke(registro);
+        }
+        catch (NoSuchMethodException ex){}
+        catch (InvocationTargetException e) {}
+        catch (IllegalAccessException e) {}
+        return ret;
+    }
+
+    private Long getLongValue(Field f, T registro) {
+        Long ret = null;
+        try{
+            ret = (Long)clazz.getDeclaredMethod("get"+f.getName(), Long.class).invoke(registro);
         }
         catch (NoSuchMethodException ex){}
         catch (InvocationTargetException e) {}
@@ -114,14 +141,14 @@ public abstract class AbstractDao <T extends Identificavel> {
         return ret;
     }
 
-    public void deleteComment(T registro) {
+    public void delete(T registro) {
         long id = ((Identificavel)registro).getId();
         database.delete(dbHelper.DICTIONARY_TABLE_NAME,
                 dbHelper.DICTIONARY_ID_COLUMN
                         + " = " + id, null);
     }
 
-    public List<T> getAllComments() {
+    public List<T> getAll() {
 
         List<T> registros = new ArrayList<>();
 
