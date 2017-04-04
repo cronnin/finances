@@ -1,5 +1,6 @@
 package com.financesm.model;
 
+import com.financesm.core.annotation.CampoDB;
 import com.financesm.core.db.Identificavel;
 
 import java.io.Serializable;
@@ -10,9 +11,13 @@ import java.io.Serializable;
 
 public class Movimentacao implements Serializable, Identificavel {
 
+    @CampoDB(tipo = CampoDB.TipoCampo.INTEIRO)
     private Long id;
+    @CampoDB(tipo = CampoDB.TipoCampo.DECIMAL)
     private Double valor;
+    @CampoDB(tipo = CampoDB.TipoCampo.TEXT)
     private String descricao;
+    @CampoDB(tipo = CampoDB.TipoCampo.INTEIRO)
     private TipoMovimentacao tipo;
 
     public String getDescricao() {

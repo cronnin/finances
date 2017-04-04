@@ -44,7 +44,7 @@ public abstract class AbstractHelper<T extends Serializable> extends SQLiteOpenH
 
             CampoDB a = (CampoDB)f.getAnnotation(CampoDB.class);
 
-            sb.append(a.alias().isEmpty() ? f.getName().toUpperCase() : a.alias());
+            sb.append(a.alias() == null || a.alias().isEmpty() ? f.getName().toUpperCase() : a.alias());
             sb.append(" ");
 
             switch (a.tipo()){

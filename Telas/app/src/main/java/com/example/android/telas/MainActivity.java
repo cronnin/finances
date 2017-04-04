@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void abrirEntrada(View view){
-        Intent it = new Intent(MainActivity.this, MovimentacaoListActivity.class);
+        Intent it = new Intent(MainActivity.this, CadastroActivity.class);
         startActivity(it);
-        setContentView(R.layout.activity_movimentacao_list);
     }
 }

@@ -20,19 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Entrada" />
-        <activity
-            android:name=".MovimentacaoListActivity"
-            android:label="@string/title_movimentacao_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".MovimentacaoDetailActivity"
-            android:label="@string/title_movimentacao_detail"
-            android:parentActivityName=".MovimentacaoListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.telas.MovimentacaoListActivity" />
-        </activity>
+        <activity android:name=".CadastroActivity"></activity>
     </application>
 
 </manifest>
