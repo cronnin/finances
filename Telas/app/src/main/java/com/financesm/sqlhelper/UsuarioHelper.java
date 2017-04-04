@@ -9,8 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class UsuarioHelper extends AbstractHelper {
 
-    public UsuarioHelper(Context context, SQLiteDatabase.CursorFactory factory) {
-        super("USUARIOS", context, factory);
+    public UsuarioHelper(Context context) {
+        super("USUARIOS", "ID_USUARIO",context);
     }
 
 

@@ -22,8 +22,8 @@ public abstract class AbstractHelper<T extends Serializable> extends SQLiteOpenH
     public final String DICTIONARY_ID_COLUMN;
     public final String DICTIONARY_TABLE_CREATE;
 
-    public AbstractHelper(String dictionaryTableName, String idColumn, Context context, SQLiteDatabase.CursorFactory factory) {
-        super(context, DATA_BASE_NAME, factory, DATABASE_VERSION);
+    public AbstractHelper(String dictionaryTableName, String idColumn, Context context) {
+        super(context, DATA_BASE_NAME, null, DATABASE_VERSION);
         this.DICTIONARY_TABLE_NAME = dictionaryTableName;
         this.DICTIONARY_ID_COLUMN = idColumn;
         DICTIONARY_TABLE_CREATE = "CREATE TABLE " + DICTIONARY_TABLE_NAME + " ( " +
