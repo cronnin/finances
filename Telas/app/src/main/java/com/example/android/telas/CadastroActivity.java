@@ -8,21 +8,46 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.financesm.dao.AbstractDao;
 import com.financesm.dao.MovimentacaoDao;
 import com.financesm.model.Movimentacao;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class CadastroActivity extends AppCompatActivity {
+public abstract class CadastroActivity<T extends Serializable> extends AppCompatActivity {
+
+    private Class clazz;
+    private AbstractDao dao;
+
+    public CadastroActivity(Class clazz, AbstractDao dao){
+
+        this.clazz = clazz;
+        this.dao = dao;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
-        MovimentacaoDao dao = new MovimentacaoDao(getBaseContext());
+        try {
 
-        List<Movimentacao> lista = dao.getAll();
+            dao.iniciarDbHelper(getBaseContext());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        List<Movimentacao> lista = new ArrayList<>();
+        try {
+
+            lista = dao.getAll();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         ArrayAdapter<Movimentacao> adapter = new ArrayAdapter<Movimentacao>(this,
                 android.R.layout.simple_list_item_1, lista);
 
@@ -31,6 +56,15 @@ public class CadastroActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        try {
+            dao.close();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        super.onDestroy();
+    }
 
     public void abrirFormulario(View view){
 

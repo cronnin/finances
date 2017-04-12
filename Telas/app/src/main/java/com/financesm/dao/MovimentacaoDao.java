@@ -11,7 +11,12 @@ import com.financesm.sqlhelper.MovimentacaoHelper;
  */
 
 public class MovimentacaoDao extends AbstractDao<Movimentacao> {
-    public MovimentacaoDao(Context context) {
-        super(new MovimentacaoHelper(context), Movimentacao.class);
+    public MovimentacaoDao() {
+        super(Movimentacao.class);
+    }
+
+    @Override
+    public void iniciarDbHelper(Context context) throws Exception {
+        super.iniciarDbHelper(new MovimentacaoHelper(context));
     }
 }

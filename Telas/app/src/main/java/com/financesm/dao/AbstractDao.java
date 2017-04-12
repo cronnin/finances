@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.financesm.core.CampoForm;
+import com.financesm.core.Util;
 import com.financesm.core.annotation.CampoDB;
 import com.financesm.core.db.Identificavel;
 import com.financesm.sqlhelper.AbstractHelper;
@@ -26,9 +28,15 @@ public abstract class AbstractDao <T extends Identificavel> {
     private AbstractHelper dbHelper;
     private Class<T> clazz;
 
-    public AbstractDao(AbstractHelper dbHelper, Class<T> clazz){
-        this.dbHelper = dbHelper;
+    public AbstractDao(Class<T> clazz){
         this.clazz = clazz;
+        this.open();
+    }
+
+    public abstract void iniciarDbHelper(Context context) throws Exception;
+
+    protected void iniciarDbHelper(AbstractHelper dbHelper){
+        this.dbHelper = dbHelper;
     }
 
     public void open() throws SQLException {
@@ -50,7 +58,7 @@ public abstract class AbstractDao <T extends Identificavel> {
                         values);
         Cursor cursor =
                 database.query(dbHelper.DICTIONARY_TABLE_NAME,
-                        dbHelper.getArrayCampos(),
+                        dbHelper.arrayCampos,
                         dbHelper.DICTIONARY_ID_COLUMN + " = " + insertId, null,
                         null, null, null);
         cursor.moveToFirst();
@@ -61,84 +69,29 @@ public abstract class AbstractDao <T extends Identificavel> {
 
     private void inserirCampos(ContentValues values, T registro) {
 
-        Field[] campos = clazz.getDeclaredFields();
-        CampoDB c;
-        for(Field f : campos){
+        for(CampoForm f : (List<CampoForm>)dbHelper.listaCampos){
 
-            c = f.getAnnotation(CampoDB.class);
-            if(c != null) {
-
-                switch (c.tipo()){
-                    case INTEIRO:
-                        values.put( (c.alias().isEmpty() ? f.getName() : c.alias()) ,
-                                getLongValue(f, registro));
-                        break;
-                    case DECIMAL:
-                        values.put( (c.alias().isEmpty() ? f.getName() : c.alias()) ,
-                                getDoubleValue(f, registro));
-                        break;
-                    case DATE:
-                        values.put( (c.alias().isEmpty() ? f.getName() : c.alias()) ,
-                                getDateValue(f, registro));
-                        break;
-                    case TEXT:
-                        default:
-                            values.put( (c.alias().isEmpty() ? f.getName() : c.alias()) ,
-                                    getStringValue(f, registro));
-                }
-
-
+            switch (f.getCampoDB().tipo()){
+                case INTEIRO:
+                    values.put( f.getAlias() ,
+                            Util.getLongValue(clazz, f.getFieldName(), registro));
+                    break;
+                case DECIMAL:
+                    values.put( f.getAlias() ,
+                            Util.getDoubleValue(clazz, f.getFieldName(), registro));
+                    break;
+                case DATE:
+                    values.put( f.getAlias() ,
+                            Util.getDateValue(clazz, f.getFieldName(), registro));
+                    break;
+                case TEXT:
+                    default:
+                        values.put( f.getAlias() ,
+                                Util.getStringValue(clazz, f.getFieldName(), registro));
             }
+
         }
 
-    }
-
-    private Long getDateValue(Field f, T registro) {
-        Date ret = null;
-        try{
-            ret = (Date)clazz.getDeclaredMethod("get"+f.getName(), Date.class).invoke(registro);
-        }
-        catch (NoSuchMethodException ex){}
-        catch (InvocationTargetException e) {}
-        catch (IllegalAccessException e) {}
-
-        if(ret != null)
-            return ret.getTime();
-        else
-            return null;
-    }
-
-    private Double getDoubleValue(Field f, T registro) {
-        Double ret = null;
-        try{
-            ret = (Double)clazz.getDeclaredMethod("get"+f.getName(), Double.class).invoke(registro);
-        }
-        catch (NoSuchMethodException ex){}
-        catch (InvocationTargetException e) {}
-        catch (IllegalAccessException e) {}
-        return ret;
-    }
-
-    private Long getLongValue(Field f, T registro) {
-        Long ret = null;
-        try{
-            ret = (Long)clazz.getDeclaredMethod("get"+f.getName(), Long.class).invoke(registro);
-        }
-        catch (NoSuchMethodException ex){}
-        catch (InvocationTargetException e) {}
-        catch (IllegalAccessException e) {}
-        return ret;
-    }
-
-    private String getStringValue(Field f, T registro) {
-        String ret = null;
-        try{
-            ret = (String)clazz.getDeclaredMethod("get"+f.getName(), String.class).invoke(registro);
-        }
-        catch (NoSuchMethodException ex){}
-        catch (InvocationTargetException e) {}
-        catch (IllegalAccessException e) {}
-        return ret;
     }
 
     public void delete(T registro) {
@@ -154,7 +107,7 @@ public abstract class AbstractDao <T extends Identificavel> {
 
         Cursor cursor =
                 database.query(dbHelper.DICTIONARY_TABLE_NAME,
-                        dbHelper.getArrayCampos(), null, null, null,
+                        dbHelper.arrayCampos, null, null, null,
                         null, null);
 
         cursor.moveToFirst();

@@ -10,7 +10,7 @@ import com.financesm.model.Movimentacao;
  */
 
 public class MovimentacaoHelper extends AbstractHelper<Movimentacao> {
-    public MovimentacaoHelper(Context context) {
+    public MovimentacaoHelper(Context context) throws Exception {
         super("MOVIMENTACAO", "ID_MOVIMENTACAO", context);
     }
 }

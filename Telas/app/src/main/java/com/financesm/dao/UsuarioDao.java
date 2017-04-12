@@ -12,7 +12,12 @@ import com.financesm.sqlhelper.UsuarioHelper;
 
 public class UsuarioDao extends AbstractDao<Usuario> {
 
-    public UsuarioDao(Context context) {
-        super(new UsuarioHelper(context), Usuario.class);
+    public UsuarioDao() {
+        super(Usuario.class);
+    }
+
+    @Override
+    public void iniciarDbHelper(Context context) throws Exception {
+        super.iniciarDbHelper(new UsuarioHelper(context));
     }
 }

@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class UsuarioHelper extends AbstractHelper {
 
-    public UsuarioHelper(Context context) {
+    public UsuarioHelper(Context context) throws Exception {
         super("USUARIOS", "ID_USUARIO",context);
     }
 
