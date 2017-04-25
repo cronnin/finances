@@ -1,5 +1,8 @@
 package com.example.android.telas;
 
+import android.net.Uri;
+
+import com.financesm.core.db.Identificavel;
 import com.financesm.dao.MovimentacaoDao;
 import com.financesm.dao.UsuarioDao;
 import com.financesm.model.Movimentacao;
